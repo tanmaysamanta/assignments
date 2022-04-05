@@ -3,7 +3,7 @@ const areArraysEqual = function (firstArray, secondArray) {
     return false;
   }
   for (let index = 0; index < firstArray.length; index++) {
-    if (firstArray[index] !== secondArray[index]) {
+    if (!areEqual(firstArray[index], secondArray[index])) {
       return false;
     }
   }
@@ -17,29 +17,21 @@ const areEqual = function (firstElement, secondElement) {
   return firstElement === secondElement;
 };
 
-const logToGroup = function (groups, groupIndex, element) {
-  if (groupIndex === -1) {
-    groups.push([element]);
-  } else {
-    groups[groupIndex].push(element);
-  }
-  return groups;
-};
-
-const indexOfGroup = function (element, groups) {
-  for (let index = 0; index < groups.length; index++) {
-    if (areEqual(groups[index][0], element)) {
-      return index;
+const groupByElements = function (element, groups) {
+  for (let position = 0; position < groups.length; position++) {
+    if (areEqual(element, groups[position][0])) {
+      groups[position].push(element);
+      return groups;
     }
   }
-  return -1;
+  groups.push([element]);
+  return groups;
 };
 
 const groupBy = function (sets) {
   let groups = [];
   for (let index = 0; index < sets.length; index++) {
-    const groupIndex = indexOfGroup(sets[index], groups);
-    groups = logToGroup(groups, groupIndex, sets[index]);
+    groupByElements(sets[index], groups);
   }
   return groups;
 };
@@ -51,6 +43,7 @@ const main = function () {
   console.log(groupBy([1, 2, 3, 1, 2, 4]));
   console.log(groupBy([[1, 1], 1, [1, 1], 1]));
   console.log(groupBy([[1, 1], 1, [1, 1], 1, 2, [2, 2]]));
+  console.log(groupBy([[[1, 2], [2, 3]], 5, [[1, 2], [2, 3]]]));
 };
 
 main();
