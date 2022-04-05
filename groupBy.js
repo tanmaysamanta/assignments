@@ -1,20 +1,20 @@
-const areArraysEqual = function (firstArray, secondArray) {
-  if (firstArray.length !== secondArray.length) {
+const areArraysEqual = function (array1, array2) {
+  if (array1.length !== array2.length) {
     return false;
   }
-  for (let index = 0; index < firstArray.length; index++) {
-    if (!areEqual(firstArray[index], secondArray[index])) {
+  for (let index = 0; index < array1.length; index++) {
+    if (!areEqual(array1[index], array2[index])) {
       return false;
     }
   }
   return true;
 };
 
-const areEqual = function (firstElement, secondElement) {
-  if (Array.isArray(firstElement) && Array.isArray(secondElement)) {
-    return areArraysEqual(firstElement, secondElement)
+const areEqual = function (element1, element2) {
+  if (Array.isArray(element1) && Array.isArray(element2)) {
+    return areArraysEqual(element1, element2)
   }
-  return firstElement === secondElement;
+  return element1 === element2;
 };
 
 const groupByElements = function (element, groups) {
@@ -37,6 +37,7 @@ const groupBy = function (sets) {
 };
 
 const main = function () {
+  console.log(groupBy([]));
   console.log(groupBy([1]));
   console.log(groupBy([1, 2]));
   console.log(groupBy([1, 2, 1]));
