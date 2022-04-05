@@ -17,6 +17,15 @@ const areEqual = function (firstElement, secondElement) {
   return firstElement === secondElement;
 };
 
+const logToGroup = function (groups, groupIndex, element) {
+  if (groupIndex === -1) {
+    groups.push([element]);
+  } else {
+    groups[groupIndex].push(element);
+  }
+  return groups;
+};
+
 const indexOfGroup = function (element, groups) {
   for (let index = 0; index < groups.length; index++) {
     if (areEqual(groups[index][0], element)) {
@@ -26,15 +35,11 @@ const indexOfGroup = function (element, groups) {
   return -1;
 };
 
-const groupBy = function (elements) {
-  const groups = [];
-  for (let index = 0; index < elements.length; index++) {
-    const groupIndex = indexOfGroup(elements[index], groups);
-    if (groupIndex === -1) {
-      groups.push([elements[index]]);
-    } else {
-      groups[groupIndex].push(elements[index]);
-    }
+const groupBy = function (sets) {
+  let groups = [];
+  for (let index = 0; index < sets.length; index++) {
+    const groupIndex = indexOfGroup(sets[index], groups);
+    groups = logToGroup(groups, groupIndex, sets[index]);
   }
   return groups;
 };
